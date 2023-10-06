@@ -1,0 +1,11 @@
+.details-bg {
+    /* background: linear-gradient(to bottom right, #635BFF, #8F19F3, #E035D9); */
+    background: linear-gradient(54deg, #635BFF 15.56%, #8F19F3 51.84%, #E035D9 93.72%);
+    ;
+}
+
+.ant-select-selector { 
+    border-radius: 0 !important;
+    /* border-top: 0px !important; */
+    /* background-color: #E0E4EA !important; */
+}
