@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/static/css/main.256c88af.css",
-    "main.js": "/react-gh-pages/static/js/main.202f940e.js",
-    "static/js/787.e0223670.chunk.js": "/react-gh-pages/static/js/787.e0223670.chunk.js",
-    "static/media/giftBoxVen.gif": "/react-gh-pages/static/media/giftBoxVen.221945004847ac18a94c.gif",
-    "static/media/giftImg.png": "/react-gh-pages/static/media/giftImg.3a8ef66f8e8bf214ab75.png",
-    "static/media/giftbox.png": "/react-gh-pages/static/media/giftbox.ee56d49ebeaf45d2a5d9.png",
-    "index.html": "/react-gh-pages/index.html",
-    "main.256c88af.css.map": "/react-gh-pages/static/css/main.256c88af.css.map",
-    "main.202f940e.js.map": "/react-gh-pages/static/js/main.202f940e.js.map",
-    "787.e0223670.chunk.js.map": "/react-gh-pages/static/js/787.e0223670.chunk.js.map"
+    "main.css": "/gift-on-schedule/static/css/main.256c88af.css",
+    "main.js": "/gift-on-schedule/static/js/main.45e3488a.js",
+    "static/js/787.e0223670.chunk.js": "/gift-on-schedule/static/js/787.e0223670.chunk.js",
+    "static/media/giftBoxVen.gif": "/gift-on-schedule/static/media/giftBoxVen.221945004847ac18a94c.gif",
+    "static/media/giftImg.png": "/gift-on-schedule/static/media/giftImg.3a8ef66f8e8bf214ab75.png",
+    "static/media/giftbox.png": "/gift-on-schedule/static/media/giftbox.ee56d49ebeaf45d2a5d9.png",
+    "index.html": "/gift-on-schedule/index.html",
+    "main.256c88af.css.map": "/gift-on-schedule/static/css/main.256c88af.css.map",
+    "main.45e3488a.js.map": "/gift-on-schedule/static/js/main.45e3488a.js.map",
+    "787.e0223670.chunk.js.map": "/gift-on-schedule/static/js/787.e0223670.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.256c88af.css",
-    "static/js/main.202f940e.js"
+    "static/js/main.45e3488a.js"
   ]
 }
