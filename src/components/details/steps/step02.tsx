@@ -14,21 +14,48 @@ const Step02 = () => {
   const dispatch = useDispatch();
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
+  const [fNameError, setFNameError] = useState("");
+  const [lNameError, setLNameError] = useState("");
   const userData = useSelector((state: any) => state?.giftFormData?.formState);
 
   const handleEditClick = (step: number) => {
     dispatch(stepCount(step));
   };
 
+  const handleFNChange = (e: any) => {
+    setFName(e?.target?.value);
+    if (e?.target?.value === "") {
+      setFNameError("First name is required.");
+    } else {
+      setFNameError("");
+    }
+  };
+  const handleLNChange = (e: any) => {
+    setLName(e?.target?.value);
+    if (e?.target?.value === "") {
+      setLNameError("Last name is required.");
+    } else {
+      setLNameError("");
+    }
+  };
+
   const handleContinue = () => {
-    dispatch(stepCount(3));
-    dispatch(
-      formStateData({
-        ...userData,
-        firstName: fName,
-        lastName: lName,
-      })
-    );
+    if (fName === "") {
+      setFNameError("First name is required.");
+    }
+    if (lName === "") {
+      setLNameError("Last name is required.");
+    }
+    if (fName !== "" && lName !== "") {
+      dispatch(stepCount(3));
+      dispatch(
+        formStateData({
+          ...userData,
+          firstName: fName,
+          lastName: lName,
+        })
+      );
+    }
   };
 
   return (
@@ -70,17 +97,18 @@ const Step02 = () => {
               icon={<UserIcon />}
               inputPlace="I First Name"
               // inputClass={"!rounded-t-md"}
-              onChange={(e: any) => setFName(e?.target?.value)}
+              onChange={handleFNChange}
               value={fName}
             />
-
+            <div className="block text-xs text-[red]">{fNameError}</div>
             <Input
               icon={<UserIcon />}
               inputPlace="I Last Name"
               // inputClass={"!rounded-b-md"}
-              onChange={(e: any) => setLName(e?.target?.value)}
+              onChange={handleLNChange}
               value={lName}
             />
+            <div className="block text-xs text-[red]">{lNameError}</div>
           </div>
           <div className="text-[10px] leading-[13px] font-normal text-[#2E354B] mt-4 flex justify-center">
             *We need this information to send the gift using FedEx mail campaign

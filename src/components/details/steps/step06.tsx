@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProgressBar from "../../../common/progressBar";
 import Calender from "../../../assets/details/calender";
 import RightArrow from "../../../assets/details/rightArrow";
@@ -10,20 +10,66 @@ import EarthIcon from "../../../assets/details/earthIcon";
 import LocationIcon from "../../../assets/details/locationIcon";
 import { stepCount } from "../../../redux/slices/stepsCounter";
 import { useDispatch, useSelector } from "react-redux";
-import { confirmDetail } from "../api/confirmDetail";
+import { ConfirmDetail } from "../api/confirmDetail";
+import axios from "axios";
 
 const Step06 = () => {
   const felWidth = 100 / 2;
   const dispatch = useDispatch();
   const userData = useSelector((state: any) => state?.giftFormData?.formState);
+  const [errorState, setErrorState] = useState("");
 
   const handleEditClick = (step: number) => {
     dispatch(stepCount(step));
   };
 
-  const handleConfirm = () => {
-    dispatch(stepCount(8));
-    confirmDetail();
+  const handleConfirm = async () => {
+    const data = {
+      email: userData?.email,
+      username: {
+        "first-name": userData?.firstName,
+        "last-name": userData?.lastName,
+      },
+      phone: userData?.phone,
+      country: userData?.country,
+      city: userData?.city,
+      state: userData?.state,
+      apartment: userData?.street,
+      street: userData?.street,
+      zip: userData?.zip,
+      // deliveryDate:userData?.deliveryDate
+    };
+
+    // try {
+
+    // const confirmData = await ConfirmDetail({
+    //   baseURL:
+    //     "https://giftonschedule.bubbleapps.io/version-test/api/1.1/wf/giftonschedule-user-register",
+    //   data: data,
+    // });
+    // console.log("confirmData = ", confirmData);
+    // } catch (error) {
+    //   console.log(error)
+    // }
+
+    axios
+      .post(
+        "https://giftonschedule.bubbleapps.io/version-test/api/1.1/wf/giftonschedule-user-register",
+        data,
+        {
+          headers: { Authorization: "Bearer 7e008bc659fe4ad68fc640c62c1805e8" },
+        }
+      )
+      .then((response) => {
+        console.log("response = ", response);
+        if (response?.status === 200) {
+          dispatch(stepCount(8));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorState(error?.response?.data?.message);
+      });
   };
 
   return (
@@ -145,6 +191,7 @@ const Step06 = () => {
                 </div>
               </div>
             </div>
+            <div className="block text-xs text-[red]">{errorState}</div>
           </div>
 
           <div className="flex justify-center mt-8">

@@ -18,23 +18,76 @@ const Step05 = () => {
   const [state, setState] = useState("");
   const [street, setStreet] = useState("");
   const [zip, setZip] = useState("");
+  const [cityError, setCityError] = useState("");
+  const [stateError, setStateError] = useState("");
+  const [streetError, setStreetError] = useState("");
+  const [zipError, setZipError] = useState("");
   const userData = useSelector((state: any) => state?.giftFormData?.formState);
-
-  const handleContinue = () => {
-    dispatch(stepCount(6));
-    dispatch(
-      formStateData({
-        ...userData,
-        city: city,
-        zip: zip,
-        street: street,
-        state: state,
-      })
-    );
-  };
 
   const handleEditClick = (step: number) => {
     dispatch(stepCount(step));
+  };
+
+  const handleContinue = () => {
+    if (street === "") {
+      setStreetError("Street is required.");
+    }
+    if (state === "") {
+      setStateError("State is required.");
+    }
+    if (city === "") {
+      setCityError("City is required.");
+    }
+    if (zip === "") {
+      setZipError("Zip is required.");
+    }
+    if (street !== "" && state !== "" && city !== "" && zip !== "") {
+      dispatch(stepCount(6));
+      dispatch(
+        formStateData({
+          ...userData,
+          city: city,
+          zip: zip,
+          street: street,
+          state: state,
+        })
+      );
+    }
+  };
+
+  const handleChangeStreet = (e: any) => {
+    setStreet(e?.target?.value);
+    if (e?.target?.value !== "") {
+      setStreetError("");
+    } else {
+      setStreetError("Street is required.");
+    }
+  };
+
+  const handleChangeState = (value: any) => {
+    setState(value);
+    if (value !== "") {
+      setStateError("");
+    } else {
+      setStateError("State is required.");
+    }
+  };
+
+  const handleChangCity = (e: any) => {
+    setCity(e?.target?.value);
+    if (e?.target?.value !== "") {
+      setCityError("");
+    } else {
+      setCityError("City is required.");
+    }
+  };
+  const handleChangeZip = (e: any) => {
+    setZip(e?.target?.value);
+    if (e?.target?.value !== "") {
+      setZipError("");
+    } else {
+      setZipError("Zip is required.");
+    }
   };
 
   return (
@@ -74,27 +127,34 @@ const Step05 = () => {
               icon={<LocationIcon />}
               inputPlace="I Street , Apartment "
               inputClass={"!rounded-t-md"}
-              onChange={(e: any) => setStreet(e?.target?.value)}
+              onChange={handleChangeStreet}
               value={street}
             />
+            <div className="block text-xs text-[red]">{streetError}</div>
+
             <Input
               icon={<LocationIcon />}
               inputPlace="I City"
-              onChange={(e: any) => setCity(e?.target?.value)}
+              onChange={handleChangCity}
               value={city}
             />
+            <div className="block text-xs text-[red]">{cityError}</div>
+
             <CustomSelect
               inputPlace="State"
-              onChange={(value: any) => setState(value)}
+              onChange={(value: any) => handleChangeState(value)}
               value={state}
             />
+            <div className="block text-xs text-[red]">{stateError}</div>
+
             <Input
               icon={<LocationIcon />}
               inputPlace="I Zip Code"
               inputClass={"!rounded-b-md"}
-              onChange={(e: any) => setZip(e?.target?.value)}
+              onChange={handleChangeZip}
               value={zip}
             />
+            <div className="block text-xs text-[red]">{zipError}</div>
           </div>
           <div className="text-[10px] leading-[13px] font-normal text-[#FFF] mt-4 flex justify-center">
             *We need this information to send the gift using FedEx mail campaign

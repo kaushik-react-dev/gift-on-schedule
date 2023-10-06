@@ -17,17 +17,55 @@ const Step03 = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const userData = useSelector((state: any) => state?.giftFormData?.formState);
 
+  // const handleContinue = () => {
+  //   dispatch(stepCount(4));
+  //   dispatch(
+  //     formStateData({
+  //       ...userData,
+  //       email: email,
+  //       phone: phone,
+  //     })
+  //   );
+  // };
+
+  const handleEmailChange = (e: any) => {
+    setEmail(e?.target?.value);
+    if (e?.target?.value === "") {
+      setEmailError("Email is required.");
+    } else {
+      setEmailError("");
+    }
+  };
+  const handlePhoneChange = (e: any) => {
+    setPhone(e?.target?.value);
+    if (e?.target?.value === "") {
+      setPhoneError("Phone number is required.");
+    } else {
+      setPhoneError("");
+    }
+  };
+
   const handleContinue = () => {
-    dispatch(stepCount(4));
-    dispatch(
-      formStateData({
-        ...userData,
-        email: email,
-        phone: phone,
-      })
-    );
+    if (email === "") {
+      setEmailError("Email is required.");
+    }
+    if (phone === "") {
+      setPhoneError("Phone number is required.");
+    }
+    if (email !== "" && phone !== "") {
+      dispatch(
+        formStateData({
+          ...userData,
+          email: email,
+          phone: phone,
+        })
+      );
+      dispatch(stepCount(4));
+    }
   };
 
   const handleEditClick = (step: number) => {
@@ -91,16 +129,19 @@ const Step03 = () => {
               icon={<EmailIcon />}
               inputPlace="I Email"
               inputClass={"!rounded-t-md"}
-              onChange={(e: any) => setEmail(e?.target?.value)}
+              onChange={handleEmailChange}
               value={email}
             />
+            <div className="block text-xs text-[red]">{emailError}</div>
+
             <Input
               icon={<CallIcon />}
               inputPlace="I Phone"
               inputClass={"!rounded-b-md"}
-              onChange={(e: any) => setPhone(e?.target?.value)}
+              onChange={handlePhoneChange}
               value={phone}
             />
+            <div className="block text-xs text-[red]">{phoneError}</div>
           </div>
           <div className="text-[10px] leading-[13px] font-normal text-[#FFF] mt-4 flex justify-center">
             *We need this information to send the gift using FedEx mail campaign

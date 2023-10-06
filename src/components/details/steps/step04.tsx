@@ -11,17 +11,32 @@ const Step04 = () => {
 
   const dispatch = useDispatch();
   const [country, setCountry] = useState();
+  const [countryError, setCountryError] = useState("");
 
   const userData = useSelector((state: any) => state?.giftFormData?.formState);
 
   const handleContinue = () => {
-    dispatch(stepCount(5));
-    dispatch(
-      formStateData({
-        ...userData,
-        country: country,
-      })
-    );
+    if (country !== "") {
+      setCountryError("");
+      dispatch(stepCount(5));
+      dispatch(
+        formStateData({
+          ...userData,
+          country: country,
+        })
+      );
+    } else {
+      setCountryError("Country is required.");
+    }
+  };
+
+  const handleChangeCountry = (value: any) => {
+    setCountry(value);
+    if (value !== "") {
+      setCountryError("");
+    } else {
+      setCountryError("Country is required.");
+    }
   };
 
   return (
@@ -44,9 +59,10 @@ const Step04 = () => {
           <div>
             <CustomSelect
               inputPlace="Country"
-              onChange={(value: any) => setCountry(value)}
+              onChange={(value: any) => handleChangeCountry(value)}
               value={country}
             />
+            <div className="block text-xs text-[red]">{countryError}</div>
           </div>
           <div className="text-[10px] leading-[13px] font-normal text-[#2E354B] mt-8 flex justify-center">
             *We need this information to send the gift using FedEx mail campaign
