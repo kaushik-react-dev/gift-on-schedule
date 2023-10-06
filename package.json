@@ -1,7 +1,7 @@
 {
   "name": "gift-on-schedule-d",
   "version": "0.1.0",
-  "homepage": "https://<kaushik-react-dev>.github.io/<gift-on-schedule>",
+  "homepage": "https://kaushik-react-dev.github.io/gift-on-schedule",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.6",
